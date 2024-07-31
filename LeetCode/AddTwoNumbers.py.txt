@@ -1,0 +1,47 @@
+class Solution:
+    def insertNode(self, head, val):
+        node = ListNode(val)
+        node.next = head
+        return node
+
+    def reverseList(self, head):
+        prev = None
+        curr = head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        return prev
+
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        temp1, temp2, head, carry = l1, l2, None, 0
+        while temp1 != None and temp2 != None:
+            val = temp1.val + temp2.val + carry
+            if val > 9:
+                carry, val = 1, val % 10
+            else:
+                carry = 0
+            head, temp1, temp2 = self.insertNode(head, val), temp1.next, temp2.next
+        
+        while temp1 != None:
+            val = temp1.val + carry
+            if val > 9:
+                carry, val = 1, val % 10
+            else:
+                carry = 0
+
+            head, temp1 = self.insertNode(head, val), temp1.next
+        
+        while temp2 != None:
+            val = temp2.val + carry
+            if val > 9:
+                carry, val = 1, val % 10
+            else:
+                carry = 0
+
+            head, temp2 = self.insertNode(head, val), temp2.next
+        
+        if carry:
+            head = self.insertNode(head, 1)
+        return self.reverseList(head)
