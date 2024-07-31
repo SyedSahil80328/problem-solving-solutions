@@ -1,0 +1,22 @@
+class Solution:
+    def __init__ (self):
+        self.n = None
+        self.brackets = []
+
+    def compute(self, string = '(', l = 1, r = 0):
+        if r > l:
+            return
+        
+        if l == self.n and r == self.n:
+            self.brackets.append(string)
+            return
+        
+        if l < self.n:
+            self.compute(string + '(', l+1, r)
+        if r < self.n:
+            self.compute(string + ')', l, r+1)
+
+    def generateParenthesis(self, n: int):
+        self.n = n
+        self.compute()
+        return self.brackets
