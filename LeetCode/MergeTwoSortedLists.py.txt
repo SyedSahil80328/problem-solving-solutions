@@ -1,0 +1,33 @@
+class Solution:
+    def insertNode(self, head, value):
+        node = ListNode(value)
+        node.next = head
+        return node
+
+    def reverseList(self, head):
+        prev, curr = None, head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        return prev
+
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        temp1, temp2, head = list1, list2, None
+        while temp1 and temp2:
+            if temp1.val < temp2.val:
+                head = self.insertNode(head, temp1.val)
+                temp1 = temp1.next
+            else:
+                head = self.insertNode(head, temp2.val)
+                temp2 = temp2.next
+        
+        while temp1:
+            head = self.insertNode(head, temp1.val)
+            temp1 = temp1.next
+        while temp2:
+            head = self.insertNode(head, temp2.val)
+            temp2 = temp2.next
+
+        return self.reverseList(head)
